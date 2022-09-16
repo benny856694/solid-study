@@ -26,7 +26,7 @@ type BookItem = {
 export default function SearchBook(props: Props) {
   console.log('create search component');
   const [input, setInput] = createSignal('');
-  const [query, setQuery] = createSignal('');
+  const [query, setQuery] = createSignal<string>();
   const [show, setShow] = createSignal(false);
   const [data, { mutate, refetch }] = createResource<Book[], string>(
     query,
@@ -53,7 +53,7 @@ export default function SearchBook(props: Props) {
   const showRefresh = () => {};
 
   createEffect(() => {
-    console.log('show changed', show())
+    console.log('show changed', show());
     // if (show()) {
     //   setTimeout(() => queryInput.select(), 200);
     // }
@@ -107,13 +107,13 @@ export default function SearchBook(props: Props) {
               mutate([]);
               setInput('');
               setQuery('');
-              //setShow(false);
+              setShow(false);
               e.preventDefault();
             }}
           >
             ✕
           </label>
-          <form class="py-4 flex justify-between gap-x-2">
+          <div class="py-4 flex justify-between gap-x-2">
             <input
               type="text"
               ref={queryInput!}
@@ -123,65 +123,71 @@ export default function SearchBook(props: Props) {
               class="input input-bordered w-full"
             />
 
-            <button
-              classList={{ btn: true }}
-              
-              onClick={(e) => {
-                console.log('start query' + input());
-                if (input().trim()) {
-                  e.preventDefault;
-                  setQuery('');
-                  setQuery(input());
-                }
-              }}
+            <Suspense
+              fallback={
+                <button class="btn loading" disabled>
+                  Search...
+                </button>
+              }
             >
-              Search
-            </button>
-          </form>
-       
-          
-              <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
-                <div>
-                  <table class="table table-compact w-full">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th class="w-2/3">Title</th>
-                        <th>Author</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <For each={data()}>
-                        {(book, i) => (
-                          <tr>
-                            <th>{i() + 1}</th>
-                            <td class="max-w-xs whitespace-normal">
-                              {book.name}
-                            </td>
-                            <td class="whitespace-normal">{book.author}</td>
-                            <td>
-                              <label
-                                class="btn btn-xs btn-primary modal-button"
-                                onClick={(_) => {
-                                  props.setBooks((bks) => [...bks, book]);
-                                  mutate((books) =>
-                                    books?.filter((b) => b !== book)
-                                  );
-                                }}
-                              >
-                                Add
-                              </label>
-                            </td>
-                          </tr>
-                        )}
-                      </For>
-                    </tbody>
-                  </table>
-                </div>
-              </Show>
-            
-          
+              <button
+                class="btn"
+                onClick={(e) => {
+                  console.log('start query' + data());
+                  if (input().trim()) {
+                    e.preventDefault;
+                    setQuery();
+                    setQuery(input());
+                  }
+                }}
+              >
+                Search {data() && null}
+              </button>
+            </Suspense>
+          </div>
+
+          <Suspense fallback={'Searching....'}>
+            <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
+              <div>
+                <table class="table table-compact w-full">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th class="w-2/3">Title</th>
+                      <th>Author</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <For each={data()}>
+                      {(book, i) => (
+                        <tr>
+                          <th>{i() + 1}</th>
+                          <td class="max-w-xs whitespace-normal">
+                            {book.name}
+                          </td>
+                          <td class="whitespace-normal">{book.author}</td>
+                          <td>
+                            <label
+                              class="btn btn-xs btn-primary modal-button"
+                              onClick={(_) => {
+                                props.setBooks((bks) => [...bks, book]);
+                                mutate((books) =>
+                                  books?.filter((b) => b !== book)
+                                );
+                              }}
+                            >
+                              Add
+                            </label>
+                          </td>
+                        </tr>
+                      )}
+                    </For>
+                  </tbody>
+                </table>
+              </div>
+            </Show>
+          </Suspense>
         </div>
       </div>
     </>
