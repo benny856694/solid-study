@@ -80,17 +80,13 @@ export default function Searcher(props: Props) {
           class="input input-bordered w-full"
         />
 
-        <Suspense
-          fallback={
-            <button class="btn loading" disabled>
-              Search
-            </button>
-          }
+        <button
+          classList={{ btn: true, loading: data.loading }}
+          disabled={data.loading}
+          type="submit"
         >
-          <button class="btn" disabled={input().length == 0} type="submit">
-            Search {data() && null}
-          </button>
-        </Suspense>
+          Search {data() && null}
+        </button>
       </form>
 
       <Suspense fallback={'Searching....'}>
@@ -99,42 +95,38 @@ export default function Searcher(props: Props) {
           fallback={'Error! Please retry'}
         >
           <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
-            <div>
-              <table class="table table-compact w-full">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th class="w-2/3">Title</th>
-                    <th>Author</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <For each={data()}>
-                    {(book, i) => (
-                      <tr>
-                        <th>{i() + 1}</th>
-                        <td class="max-w-xs whitespace-normal">{book.name}</td>
-                        <td class="whitespace-normal">{book.author}</td>
-                        <td>
-                          <label
-                            class="btn btn-xs btn-primary modal-button"
-                            onClick={(_) => {
-                              props.setBooks((bks) => [...bks, book]);
-                              mutate((books) =>
-                                books?.filter((b) => b !== book)
-                              );
-                            }}
-                          >
-                            Add
-                          </label>
-                        </td>
-                      </tr>
-                    )}
-                  </For>
-                </tbody>
-              </table>
-            </div>
+            <table class="table table-compact w-full">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="w-2/3">Title</th>
+                  <th>Author</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <For each={data()}>
+                  {(book, i) => (
+                    <tr>
+                      <th>{i() + 1}</th>
+                      <td class="max-w-xs whitespace-normal">{book.name}</td>
+                      <td class="whitespace-normal">{book.author}</td>
+                      <td>
+                        <label
+                          class="btn btn-xs btn-primary modal-button"
+                          onClick={(_) => {
+                            props.setBooks((bks) => [...bks, book]);
+                            mutate((books) => books?.filter((b) => b !== book));
+                          }}
+                        >
+                          Add
+                        </label>
+                      </td>
+                    </tr>
+                  )}
+                </For>
+              </tbody>
+            </table>
           </Show>
         </Show>
       </Suspense>
