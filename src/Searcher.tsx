@@ -60,7 +60,17 @@ export default function Searcher(props: Props) {
 
   return (
     <>
-      <div class="py-4 flex justify-between gap-x-2">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log('start query' + data());
+          if (input().trim()) {
+            setQuery();
+            setQuery(input());
+          }
+        }}
+        class="py-4 flex justify-between gap-x-2"
+      >
         <input
           type="text"
           ref={queryInput!}
@@ -77,22 +87,11 @@ export default function Searcher(props: Props) {
             </button>
           }
         >
-          <button
-            class="btn"
-            disabled={input().length == 0}
-            onClick={(e) => {
-              console.log('start query' + data());
-              if (input().trim()) {
-                e.preventDefault;
-                setQuery();
-                setQuery(input());
-              }
-            }}
-          >
+          <button class="btn" disabled={input().length == 0} type="submit">
             Search {data() && null}
           </button>
         </Suspense>
-      </div>
+      </form>
 
       <Suspense fallback={'Searching....'}>
         <Show
