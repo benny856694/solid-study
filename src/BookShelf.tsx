@@ -61,9 +61,14 @@ export default function BookShelf(props: Props) {
           <a class="btn btn-ghost normal-case text-xl">My Bookshelf</a>
         </div>
         <div class="navbar-end">
-          
+          <ErrorBoundary
+            fallback={(err, reset) => {
+              return <button onClick={reset}>Error</button>;
+            }}
+          >
             <SearchBook setBooks={setBooks} />
-          
+          </ErrorBoundary>
+
           <AddBook setBooks={setBooks} />
         </div>
       </div>
