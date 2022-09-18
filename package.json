@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "concurrently \"npx vite\" \"npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch\"",
-    "dev": "concurrently \"npx vite\" \"npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch\"",
-    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css & vite build",
+    "start": "concurrently \"npx vite\" \"npm run tailwind-dev\"",
+    "dev": "concurrently \"npx vite\" \"npm run tailwind-dev\"",
+    "build": "npm run tailwind & vite build",
     "serve": "vite preview",
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./out/output.css",
+    "tailwind-dev": "npx tailwindcss -i ./src/input.css -o ./out/output.css --watch"
   },
   "license": "MIT",
   "devDependencies": {
