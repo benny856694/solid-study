@@ -126,6 +126,27 @@ export default function Searcher(props: Props) {
                   )}
                 </For>
               </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <button
+                      class="btn btn-xs btn-error"
+                      onClick={() =>
+                        props.setBooks((bks) => {
+                          var ret = [...bks, ...data()!];
+                          mutate([]);
+                          return ret;
+                        })
+                      }
+                    >
+                      Add All
+                    </button>
+                  </th>
+                </tr>
+              </tfoot>
             </table>
           </Show>
         </Show>

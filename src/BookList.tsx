@@ -107,7 +107,7 @@ const BookList = (props: Props) => {
                           <Show when={currentAction() === 'delete'}>
                             <label
                               for={'my-modal-' + i()}
-                              class="btn"
+                              class="btn btn-error"
                               onClick={() => purge(book)}
                             >
                               Purge
@@ -135,6 +135,21 @@ const BookList = (props: Props) => {
               )}
             </For>
           </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>
+                <button
+                  class="btn btn-xs btn-error"
+                  onClick={() => props.setBooks([])}
+                >
+                  Clear All
+                </button>
+              </th>
+            </tr>
+          </tfoot>
         </table>
       </div>
       <ul class="mt-2"></ul>
