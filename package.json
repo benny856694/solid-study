@@ -5,7 +5,7 @@
   "scripts": {
     "start": "concurrently \"npx vite\" \"npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch\"",
     "dev": "concurrently \"npx vite\" \"npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch\"",
-    "build": "vite build",
+    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css & vite build",
     "serve": "vite preview",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   },
