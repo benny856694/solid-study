@@ -29,13 +29,23 @@ const BookList = (props: Props) => {
   return (
     <>
       <div class="overflow-x-auto">
-        <table class="table table-compact w-full">
+        <table class="table table-fixed table-compact w-full">
           <thead>
             <tr>
-              <th></th>
-              <th class="w-2/4">Title</th>
-              <th>Author</th>
-              <th></th>
+              <th class="w-10"></th>
+              <th
+                classList={{
+                  'whitespace-nowrap': true,
+                  'overflow-hidden': true,
+                  'text-ellipsis': true,
+                  block: true,
+                  'w-2/6': false,
+                }}
+              >
+                Title
+              </th>
+              <th class="text-ellipsis">Author</th>
+              <th>Operation</th>
             </tr>
           </thead>
           <tbody>
@@ -45,15 +55,21 @@ const BookList = (props: Props) => {
                   <th>{i() + 1}</th>
                   <td
                     classList={{
+                      'whitespace-nowrap': true,
+                      'overflow-hidden': true,
+                      'text-ellipsis': true,
+                      block: true,
+                      'w-2/6': false,
                       'line-through': book.deleted,
                       'text-red-400': book.deleted,
                       italic: book.deleted,
-                      'whitespace-normal': true,
                     }}
                   >
                     {book.name}
                   </td>
-                  <td class="whitespace-normal">{book.author}</td>
+                  <td class="whitespace-nowrap text-ellipsis overflow-hidden">
+                    {book.author}
+                  </td>
                   <td>
                     <Show
                       when={!book.deleted}

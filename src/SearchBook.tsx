@@ -65,7 +65,7 @@ export default function SearchBook(props: Props) {
           <ErrorBoundary
             fallback={(err, reset) => (
               <>
-                <div class="alert alert-error shadow-lg mt-4">
+                <div class="alert shadow-lg mt-4">
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

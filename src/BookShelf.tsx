@@ -63,7 +63,7 @@ export default function BookShelf(props: Props) {
         <div class="navbar-end">
           <ErrorBoundary
             fallback={(err, reset) => {
-              return <button onClick={reset}>Error</button>;
+              return <button  onClick={reset}>Error</button>;
             }}
           >
             <SearchBook setBooks={setBooks} />

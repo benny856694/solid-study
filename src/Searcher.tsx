@@ -95,13 +95,13 @@ export default function Searcher(props: Props) {
           fallback={'Error! Please retry'}
         >
           <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
-            <table class="table table-compact w-full">
+            <table class="table table-fixed table-compact w-full">
               <thead>
                 <tr>
-                  <th></th>
-                  <th class="w-2/3">Title</th>
+                  <th class="w-10"></th>
+                  <th>Title</th>
                   <th>Author</th>
-                  <th></th>
+                  <th>Operation</th>
                 </tr>
               </thead>
               <tbody>
@@ -109,7 +109,7 @@ export default function Searcher(props: Props) {
                   {(book, i) => (
                     <tr>
                       <th>{i() + 1}</th>
-                      <td class="max-w-xs whitespace-normal">{book.name}</td>
+                      <td class="whitespace-normal">{book.name}</td>
                       <td class="whitespace-normal">{book.author}</td>
                       <td>
                         <label
