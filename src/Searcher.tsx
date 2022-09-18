@@ -82,10 +82,10 @@ export default function Searcher(props: Props) {
 
         <button
           classList={{ btn: true, loading: data.loading }}
-          disabled={data.loading}
+          disabled={data.loading || !input()}
           type="submit"
         >
-          Search {data() && null}
+          Search
         </button>
       </form>
 
