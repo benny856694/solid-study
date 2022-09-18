@@ -31,7 +31,7 @@ export default function Searcher(props: Props) {
     query,
     async (query: string) => {
       console.log('query for: ', query);
-      if (query === 'err') throw 'Error Occurred';
+      if (query === 'err') throw 'Error generated intentionally';
       const response = await fetch(`${url}${encodeURI(query)}`);
       const result = await response.json();
       const items = result.docs as BookItem[];
@@ -90,65 +90,60 @@ export default function Searcher(props: Props) {
       </form>
 
       <Suspense fallback={'Searching....'}>
-        <Show
-          when={!(data.state === 'errored')}
-          fallback={'Error! Please retry'}
-        >
-          <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
-            <table class="table table-fixed table-compact w-full">
-              <thead>
-                <tr>
-                  <th class="w-10"></th>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Operation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <For each={data()}>
-                  {(book, i) => (
-                    <tr class="group">
-                      <th>{i() + 1}</th>
-                      <td class="whitespace-normal">{book.name}</td>
-                      <td class="whitespace-normal">{book.author}</td>
-                      <td>
-                        <label
-                          class="btn btn-xs btn-primary modal-button invisible group-hover:visible"
-                          onClick={(_) => {
-                            props.setBooks((bks) => [...bks, book]);
-                            mutate((books) => books?.filter((b) => b !== book));
-                          }}
-                        >
-                          Add
-                        </label>
-                      </td>
-                    </tr>
-                  )}
-                </For>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th>
-                    <button
-                      class="btn btn-xs btn-primary"
-                      onClick={() =>
-                        props.setBooks((bks) => {
-                          var ret = [...bks, ...data()!];
-                          mutate([]);
-                          return ret;
-                        })
-                      }
-                    >
-                      Add All
-                    </button>
-                  </th>
-                </tr>
-              </tfoot>
-            </table>
-          </Show>
+        <Show when={data() && data()!.length > 0} fallback={'No Matches'}>
+          <table class="table table-fixed table-compact w-full">
+            <thead>
+              <tr>
+                <th class="w-10"></th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <For each={data()}>
+                {(book, i) => (
+                  <tr class="group">
+                    <th>{i() + 1}</th>
+                    <td class="whitespace-normal">{book.name}</td>
+                    <td class="whitespace-normal">{book.author}</td>
+                    <td>
+                      <label
+                        class="btn btn-xs btn-primary modal-button invisible group-hover:visible"
+                        onClick={(_) => {
+                          props.setBooks((bks) => [...bks, book]);
+                          mutate((books) => books?.filter((b) => b !== book));
+                        }}
+                      >
+                        Add
+                      </label>
+                    </td>
+                  </tr>
+                )}
+              </For>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                  <button
+                    class="btn btn-xs btn-primary"
+                    onClick={() =>
+                      props.setBooks((bks) => {
+                        var ret = [...bks, ...data()!];
+                        mutate([]);
+                        return ret;
+                      })
+                    }
+                  >
+                    Add All
+                  </button>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
         </Show>
       </Suspense>
     </>
