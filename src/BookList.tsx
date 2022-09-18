@@ -51,7 +51,7 @@ const BookList = (props: Props) => {
           <tbody>
             <For each={props.books}>
               {(book, i) => (
-                <tr>
+                <tr class="group">
                   <th>{i() + 1}</th>
                   <td
                     classList={{
@@ -70,14 +70,14 @@ const BookList = (props: Props) => {
                   <td class="whitespace-nowrap text-ellipsis overflow-hidden">
                     {book.author}
                   </td>
-                  <td>
+                  <td class="">
                     <Show
                       when={!book.deleted}
                       fallback={
                         <label
                           for={'my-modal-' + i()}
                           onClick={() => setCurrentAction('purge')}
-                          class="btn btn-xs btn-error modal-button"
+                          class="btn btn-xs btn-error modal-button invisible group-hover:visible"
                         >
                           Purge
                         </label>
@@ -86,7 +86,7 @@ const BookList = (props: Props) => {
                       <label
                         for={'my-modal-' + i()}
                         onClick={() => setCurrentAction('delete')}
-                        class="btn btn-xs btn-warning modal-button"
+                        class="btn btn-xs btn-warning modal-button invisible group-hover:visible"
                       >
                         Remove
                       </label>

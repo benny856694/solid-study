@@ -107,13 +107,13 @@ export default function Searcher(props: Props) {
               <tbody>
                 <For each={data()}>
                   {(book, i) => (
-                    <tr>
+                    <tr class="group">
                       <th>{i() + 1}</th>
                       <td class="whitespace-normal">{book.name}</td>
                       <td class="whitespace-normal">{book.author}</td>
                       <td>
                         <label
-                          class="btn btn-xs btn-primary modal-button"
+                          class="btn btn-xs btn-primary modal-button invisible group-hover:visible"
                           onClick={(_) => {
                             props.setBooks((bks) => [...bks, book]);
                             mutate((books) => books?.filter((b) => b !== book));
@@ -133,7 +133,7 @@ export default function Searcher(props: Props) {
                   <th></th>
                   <th>
                     <button
-                      class="btn btn-xs btn-error"
+                      class="btn btn-xs btn-primary"
                       onClick={() =>
                         props.setBooks((bks) => {
                           var ret = [...bks, ...data()!];
