@@ -63,7 +63,7 @@ export default function BookShelf(props: Props) {
         <div class="navbar-end">
           <ErrorBoundary
             fallback={(err, reset) => {
-              return <button  onClick={reset}>Error</button>;
+              return <button onClick={reset}>Error</button>;
             }}
           >
             <SearchBook setBooks={setBooks} />
@@ -75,7 +75,7 @@ export default function BookShelf(props: Props) {
       <Show
         when={books().length > 0}
         fallback={
-          <div class="alert shadow-lg w-2/4 mx-auto mt-8">
+          <div class="alert shadow-lg w-2/4 mx-auto mt-8 justify-center">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
