@@ -83,7 +83,7 @@ export default function SearchBook(props: Props) {
                     <span>Error: {err.toString()}</span>
                   </div>
                   <div class="flex-none">
-                    <button class="btn btn-sm btn-primary" onClick={reset}>
+                    <button class="btn btn-sm" autofocus onClick={reset}>
                       Retry
                     </button>
                   </div>

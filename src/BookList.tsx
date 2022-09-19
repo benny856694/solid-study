@@ -51,7 +51,7 @@ const BookList = (props: Props) => {
           <tbody>
             <For each={props.books}>
               {(book, i) => (
-                <tr class="group">
+                <tr class="group hover">
                   <th>{i() + 1}</th>
                   <td
                     classList={{
@@ -77,7 +77,7 @@ const BookList = (props: Props) => {
                         <label
                           for={'my-modal-' + i()}
                           onClick={() => setCurrentAction('purge')}
-                          class="btn btn-xs btn-error modal-button invisible group-hover:visible"
+                          class="btn btn-xs btn-ghost modal-button invisible group-hover:visible"
                         >
                           Purge
                         </label>
@@ -86,7 +86,7 @@ const BookList = (props: Props) => {
                       <label
                         for={'my-modal-' + i()}
                         onClick={() => setCurrentAction('delete')}
-                        class="btn btn-xs btn-warning modal-button invisible group-hover:visible"
+                        class="btn btn-xs btn-ghost  modal-button invisible group-hover:visible"
                       >
                         Remove
                       </label>
@@ -107,7 +107,7 @@ const BookList = (props: Props) => {
                           <Show when={currentAction() === 'delete'}>
                             <label
                               for={'my-modal-' + i()}
-                              class="btn btn-error"
+                              class="btn"
                               onClick={() => purge(book)}
                             >
                               Purge
@@ -142,7 +142,7 @@ const BookList = (props: Props) => {
               <th></th>
               <th>
                 <button
-                  class="btn btn-xs btn-error"
+                  class="btn btn-xs btn-ghost"
                   onClick={() => props.setBooks([])}
                 >
                   Clear All
