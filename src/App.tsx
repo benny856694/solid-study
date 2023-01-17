@@ -14,6 +14,7 @@ const App: Component = () => {
   return (
     <div class="container mx-auto px-4">
       <BookShelf name="My Book Shelf" />
+      <a href="myschema://somehost.com">myschema://somehost.com</a>
     </div>
   );
 };
